@@ -1,45 +1,56 @@
+import os
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
 
 def image_rec(image_path):
-
     # Load in the image to match
-    img = cv2.imread(image_path,0)
+    img = cv2.imread(image_path, 0)
+    img2 = img.copy()
 
-    # Convert to grayscale
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img2 = img_gray.copy()
+    os.chdir("..")
+    template_folders = os.path.join(os.getcwd(), 'test_data', 'template_images')
+    templates = os.listdir(template_folders)
+    for item in templates:
+        if item.startswith('.'):
+            templates.remove(str(item))
 
-    template = cv2.imread('template.jpg',0)
-    w, h = template.shape[::-1]
+    for template_subfolder in templates:
 
-    # All the 6 methods for comparison in a list
-    methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
-                'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+        template_folder = os.path.join(template_folders, template_subfolder)
+        template_images = os.listdir(template_folder)
 
-    for meth in methods:
-        img = img2.copy()
-        method = eval(meth)
+        for item in template_images:
+            if item.startswith('.'):
+                template_images.remove(str(item))
 
-        # Apply template Matching
-        res = cv2.matchTemplate(img,template,method)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        # score by template
+        scores = []
 
-        # If the method is TM_SQDIFF or TM_SQDIFF_NORMED, take minimum
-        if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
-            top_left = min_loc
-        else:
-            top_left = max_loc
-        bottom_right = (top_left[0] + w, top_left[1] + h)
+        for template_image in template_images:
 
-        cv2.rectangle(img,top_left, bottom_right, 255, 2)
+            template_image_directory = os.path.join(template_folder, template_image)
 
-        plt.subplot(121),plt.imshow(res,cmap = 'gray')
-        plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
-        plt.subplot(122),plt.imshow(img,cmap = 'gray')
-        plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
-        plt.suptitle(meth)
+            template = cv2.imread(template_image_directory, 0)
+            w, h = template.shape[::-1]
 
-        plt.show()
+            # All the 6 methods for comparison in a list
+            methods = ['cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF_NORMED']
+
+            for meth in methods:
+                img = img2.copy()
+
+                method = eval(meth)
+
+                # Apply template Matching
+                res = cv2.matchTemplate(img, template, method)
+                res_mean = np.mean(res)
+
+                scores.append(res_mean)
+
+        max_img_score = max(scores)
+        print(f'Template:{template_subfolder}, Score:{max_img_score}')
+
+
+if __name__ == "__main__":
+    image_rec(image_path='/Users/teddyhaley/PycharmProjects/vanhacks2019/test_data/test_images/3.jpg')
