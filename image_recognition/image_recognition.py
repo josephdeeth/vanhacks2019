@@ -11,6 +11,9 @@ def image_rec(image_path):
     os.chdir("..")
     template_folders = os.path.join(os.getcwd(), 'test_data', 'template_images')
     templates = os.listdir(template_folders)
+
+    template_scores = {}
+
     for item in templates:
         if item.startswith('.'):
             templates.remove(str(item))
@@ -49,7 +52,13 @@ def image_rec(image_path):
                 scores.append(res_mean)
 
         max_img_score = max(scores)
+        template_scores[template_subfolder] = max_img_score
         print(f'Template:{template_subfolder}, Score:{max_img_score}')
+
+    max_key = max(template_scores, key=template_scores.get)
+    max_val = template_scores[max_key]
+
+    return {max_key: max_val}
 
 
 if __name__ == "__main__":
