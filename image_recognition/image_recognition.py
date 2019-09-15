@@ -8,7 +8,6 @@ def image_rec(image_path):
     img = cv2.imread(image_path, 0)
     img2 = img.copy()
 
-    os.chdir("..")
     template_folders = os.path.join(os.getcwd(), 'test_data', 'template_images')
     templates = os.listdir(template_folders)
 
