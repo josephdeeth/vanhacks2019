@@ -100,8 +100,82 @@ export default class App extends React.Component {
                 </View>
               </Camera>
             </View>
-        <View>
-        </View>
+            <WebView
+              originWhitelist={['*']}
+              source = {{html: '<!DOCTYPE html>\n' +
+                    '<html lang="en">\n' +
+                    '<head>\n' +
+                    '    <meta charset="UTF-8">\n' +
+                    '    <title>Title</title>\n' +
+                    '    <meta name="viewport" content="initial-scale=1.0">\n' +
+                    '    <meta charset="utf-8">\n' +
+                    '    <link rel="stylesheet" type="text/css" href="map.css"/>\n' +
+                    '    <script>' +
+                    'var map;\n' +
+                    'var coordinates = {\n' +
+                    '      lat: 49.2786042,\n' +
+                    '      lng: -123.0998905,\n' +
+                    '    };\n' +
+                    'var infowindow;\n' +
+                    '\n' +
+                    'function initMap() {\n' +
+                    '  map = new google.maps.Map(document.getElementById(\'map\'), {\n' +
+                    '    center: coordinates,\n' +
+                    '    zoom: 12,\n' +
+                    '  });\n' +
+                    '\n' +
+                    '  var request = {\n' +
+                    '    query: \'Recycling Depot\',\n' +
+                    '    location: coordinates,\n' +
+                    '    radius: 7500,  // meters\n' +
+                    '  };\n' +
+                    '\n' +
+                    '  infowindow = new google.maps.InfoWindow();\n' +
+                    '\n' +
+                    '\n' +
+                    '  service = new google.maps.places.PlacesService(map);\n' +
+                    '  service.textSearch(request, function(results, status, pagination){\n' +
+                    '    // alert(status);\n' +
+                    '    // If we got results\n' +
+                    '    if(status === google.maps.places.PlacesServiceStatus.OK){\n' +
+                    '      for(var i = 0; i < results.length; i++){\n' +
+                    '        // Mark them\n' +
+                    '        createMarker(results[i]);\n' +
+                    '      }\n' +
+                    '\n' +
+                    '      // And look at the top result\n' +
+                    '      map.setCenter(results[0].geometry.location);\n' +
+                    '    }\n' +
+                    '  })\n' +
+                    '}\n' +
+                    '\n' +
+                    'function createMarker(place){\n' +
+                    '  var marker = new google.maps.Marker({\n' +
+                    '    map: map,\n' +
+                    '    position: place.geometry.location,\n' +
+                    '  });\n' +
+                    '\n' +
+                    '  // alert(place.name + " from the marker!");\n' +
+                    '\n' +
+                    '  google.maps.event.addListener(marker, "click", function(){\n' +
+                    '    map.setCenter(marker.getPosition());\n' +
+                    '    infowindow.setContent(place.name);\n' +
+                    '    infowindow.open(map, marker);\n' +
+                    '  });\n' +
+                    '}</script>\n' +
+                    '</head>\n' +
+                    '<body>\n' +
+                    '<div id="map"></div>\n' +
+                    '<!-- Init map and hook it onto the map element above. -->\n' +
+                    '\n' +
+                    '<!-- Asynchronously make call to gmaps api -->\n' +
+                    '<!--script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&libraries=places&callback=initMap" async defer></script-->\n' +
+                    '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBihH7PrH5pN8qNefSev93BReEPg0uPD7c&libraries=places&callback=initMap" async defer></script>\n' +
+                    '</body>\n' +
+                    '</html>'}}>
+
+
+            </WebView>
 
 
           </Swiper>
