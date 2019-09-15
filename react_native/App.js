@@ -31,6 +31,7 @@ export default class App extends React.Component {
         <Content>
           <Swiper
           loop={false}
+          showsPagination={false}
           index={1}
           >
             <View style={styles.slideDefault}>
@@ -46,27 +47,12 @@ export default class App extends React.Component {
                     backgroundColor: 'transparent',
                     flexDirection: 'row',
                   }}>
-                  <TouchableOpacity
-                    style={{
-                      flex: 0.1,
-                      alignSelf: 'flex-end',
-                      alignItems: 'center',
-                      bottom: 5,
-                    }}
-                    onPress={() => {
-                      this.setState({
-                        type:
-                          this.state.type === Camera.Constants.Type.back
-                            ? Camera.Constants.Type.front
-                            : Camera.Constants.Type.back,
-                      });
-                    }}>
-                  </TouchableOpacity>
                 </View>
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', padding:'5%' }}>
                     <TouchableOpacity
                       style={{width:60, height:60, borderRadius:30, backgroundColor:"#fff"}}
-                      onPress={this.handlePhoto} />
+                      onPress={this.handlePhoto}
+                      />
                 </View>
               </Camera>
             </View>
