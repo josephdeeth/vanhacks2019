@@ -6,3 +6,5 @@ flask
 requests
 dash
 plotly
+dash_bootstrap_components
+pillow
