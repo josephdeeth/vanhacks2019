@@ -10,16 +10,37 @@ import * as WebBrowser from 'expo-web-browser';
 
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+import * as ImageManipulator from 'expo-image-manipulator';
 
-
-
+const ted_url = "http://192.168.43.200:5000/post_image"
 
 cameraRef = React.createRef();
 
 handlePhoto = async () => {
   if(cameraRef){
     let photo = await cameraRef.current.takePictureAsync();
-    console.log(photo);
+//    handle the photo
+    console.log(photo)
+
+    const manipResult = await ImageManipulator.manipulateAsync(
+      photo.localUri || photo.uri,
+      [],
+      { compress: 1, format: ImageManipulator.SaveFormat.PNG, base64: true}
+    );
+
+    data = manipResult['base64']
+//    console.log("data:")
+//    console.log(data)
+
+    console.log("fetching...")
+    let response = await fetch(ted_url,
+      {
+          method:"POST",
+          body:data,
+      }
+    );
+    console.log("done")
+    console.log(response)
   }
 }
 
@@ -51,7 +72,7 @@ export default class App extends React.Component {
                 <View style={{ alignItems: 'center', padding:'5%' }}>
                     <TouchableOpacity
                       style={{width:60, height:60, borderRadius:30, backgroundColor:"#fff"}}
-                      onPress={this.handlePhoto}
+                      onPress={handlePhoto}
                       />
                 </View>
               </Camera>
