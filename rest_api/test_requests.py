@@ -12,4 +12,4 @@ def post_image(img_file):
     print(response.content)
 
 
-post_image(img_file="/Users/josephdeeth/PycharmProjects/vanhacks2019/test_data/test_images/3.jpg")
+post_image(img_file="/Users/teddyhaley/PycharmProjects/vanhacks2019/test_data/test_images/3.jpg")
