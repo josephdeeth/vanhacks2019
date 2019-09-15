@@ -76,4 +76,4 @@ def image_rec(image_path):
 
 
 if __name__ == "__main__":
-    print(image_rec(image_path='/Users/teddyhaley/PycharmProjects/vanhacks2019/test_data/test_images/3.jpg'))
+    print(image_rec(image_path='/Users/teddyhaley/Desktop/IMG_20190915_125256.jpg'))
