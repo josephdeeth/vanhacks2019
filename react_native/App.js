@@ -2,9 +2,12 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState, Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {Header, Button} from 'react-native-elements';
 import {Container, Content} from 'native-base';
 import Swiper from 'react-native-swiper';
+import SearchBar from 'react-native-search-bar'
+
 import * as gmaps from "https://maps.googleapis.com/maps/api/js?key=AIzaSyBihH7PrH5pN8qNefSev93BReEPg0uPD7c&libraries=places&callback=initMap";
 
 import * as WebBrowser from 'expo-web-browser';
@@ -103,7 +106,13 @@ function createMarker(place){
 <!-- PARDON ME EXCUSE ME I'M SORRY -->
 
 export default class App extends React.Component {
+  state = { term: ''};
   render() {
+    const{
+      containerStyle,
+      searchTextStyle,
+      buttonStyle
+    } = styles2;
     return(
       <Container>
         <Content>
@@ -112,8 +121,22 @@ export default class App extends React.Component {
           showsPagination={false}
           index={1}
           >
-            <View style={styles.slideDefault}>
-              <Text>Search</Text>
+            <View style={{ flex:1 , backgroundColor: '#ddd'}}>
+              <Header
+                centerComponent={{ text: 'Test Text', style: {color: 'white'}}}
+                outerContainerStyles={{ backgroundColor: '#E62117'}}
+              />
+              <View style={containerStyle}>
+                <TextInput
+                    style={searchTextStyle}
+                    onChangeText={term => this.setState({term})}
+                    value={this.state.term}
+                  />
+                  <Button
+                    title="Search"
+                    onPress={() => console.log(this.state.term)}
+                  />
+              </View>
             </View>
 
 
@@ -165,3 +188,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 })
+
+const styles2 = {
+  containerStyle: {
+    flexDirection: 'row',
+    marginTop: 75,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  searchTextStyle: {
+    flex: 1
+  },
+  buttonStyle:{
+    height: 30,
+    marginBottom: 8
+  }
+}

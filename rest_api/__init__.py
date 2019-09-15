@@ -1,10 +1,10 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from image_recognition.image_recognition import image_rec
 import json
 import pandas as pd
-import numpy as np
 import logging
+import base64
 
 # setup logging
 logging.basicConfig(
@@ -33,18 +33,26 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
 
-        if request.files:
+        logger.info(f"{request.data}")
+
+        if request.data:
 
             try:
-                # Image info
-                img_file = request.files.get('file')
-                img_name = img_file.filename
 
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], img_name)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], "temp_img.png")
 
-                img_file.save(file_path)
+                with open(file_path, "wb") as fh:
+                    fh.write(base64.decodebytes(request.data))
+
+                logger.info("Running image processing:")
+
                 img_dict = image_rec(image_path=file_path)
+
+                logger.info("Successfully finished image processing")
+
                 os.remove(file_path)
+
+                logger.info("Successfully removed file")
 
                 r_number = int(list(img_dict.keys())[0])
                 subset_df = recycle_df[recycle_df['recycleable_number'] == r_number]
@@ -65,9 +73,12 @@ def upload_file():
                     'found_in': found_in
                 }
 
+                logger.info("Successfully run all processing")
+
                 return json.dumps(str(return_dict))
 
-            except:
+            except Exception as e:
+                logger.error(e)
                 return 'NONE'
 
         else:
