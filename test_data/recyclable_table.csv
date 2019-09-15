@@ -1,0 +1,35 @@
+recycleable_number,acronym,chemical_name,usage,found_in
+1,PETE,Polyethylene Terephthalate,Products made of #1 (PET) plastic should be recycled but not reused.,soft drink
+1,PETE,Polyethylene Terephthalate,Products made of #1 (PET) plastic should be recycled but not reused.,mineal water
+1,PETE,Polyethylene Terephthalate,Products made of #1 (PET) plastic should be recycled but not reused.,fruit juice
+1,PETE,Polyethylene Terephthalate,Products made of #1 (PET) plastic should be recycled but not reused.,cooking oil
+2,HDPE,High-Density Polyethylene,Products made of HDPE are reusable and recyclable.,milk jug
+2,HDPE,High-Density Polyethylene,Products made of HDPE are reusable and recyclable.,cleaning
+2,HDPE,High-Density Polyethylene,Products made of HDPE are reusable and recyclable.,laundry detergent
+2,HDPE,High-Density Polyethylene,Products made of HDPE are reusable and recyclable.,bleach
+2,HDPE,High-Density Polyethylene,Products made of HDPE are reusable and recyclable.,shampoo
+2,HDPE,High-Density Polyethylene,Products made of HDPE are reusable and recyclable.,soap
+3,PVC,Polyvinyl Chloride,Products made using PVC plastic are not recyclable.,foodstuff trays
+3,PVC,Polyvinyl Chloride,Products made using PVC plastic are not recyclable.,food foil
+3,PVC,Polyvinyl Chloride,Products made using PVC plastic are not recyclable.,plastic packing
+4,LDPE,Low-Density Polyethylene,"Products made using LDPE plastic are reusable, but not always recyclable. You need to check with your local collection service to see if they are accepting LDPE plastic items for recycling.",crushed bottles
+4,LDPE,Low-Density Polyethylene,"Products made using LDPE plastic are reusable, but not always recyclable. You need to check with your local collection service to see if they are accepting LDPE plastic items for recycling.",shopping bags
+4,LDPE,Low-Density Polyethylene,"Products made using LDPE plastic are reusable, but not always recyclable. You need to check with your local collection service to see if they are accepting LDPE plastic items for recycling.",highly-resistant sacks
+4,LDPE,Low-Density Polyethylene,"Products made using LDPE plastic are reusable, but not always recyclable. You need to check with your local collection service to see if they are accepting LDPE plastic items for recycling.",most wrappings
+5,PP,Polypropylene,"PP is considered safe for reuse. To recycle products made from PP, check with your local curbside program to see if they are now accepting this material.",furniture
+5,PP,Polypropylene,"PP is considered safe for reuse. To recycle products made from PP, check with your local curbside program to see if they are now accepting this material.",consumers
+5,PP,Polypropylene,"PP is considered safe for reuse. To recycle products made from PP, check with your local curbside program to see if they are now accepting this material.",luggage
+5,PP,Polypropylene,"PP is considered safe for reuse. To recycle products made from PP, check with your local curbside program to see if they are now accepting this material.",toys
+5,PP,Polypropylene,"PP is considered safe for reuse. To recycle products made from PP, check with your local curbside program to see if they are now accepting this material.",car lining
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,toys
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,hard packing
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,refrigerator trays
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,cosmetic bags
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,costume jewellery
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,CD cases
+6,PS,Polystyrene,Recycling is not widely available for polystyrene products. Most curbside collection services will not accept polystyrene,vending cups
+7,OTHER,OTHER,"#7 plastics are not for reuse, unless they have the PLA compostable coding.",acrylic
+7,OTHER,OTHER,"#7 plastics are not for reuse, unless they have the PLA compostable coding.",polycarbonate
+7,OTHER,OTHER,"#7 plastics are not for reuse, unless they have the PLA compostable coding.",polyactic fibers
+7,OTHER,OTHER,"#7 plastics are not for reuse, unless they have the PLA compostable coding.",nylon
+7,OTHER,OTHER,"#7 plastics are not for reuse, unless they have the PLA compostable coding.",fiberglass
