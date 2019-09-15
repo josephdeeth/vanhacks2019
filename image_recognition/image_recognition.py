@@ -62,11 +62,18 @@ def image_rec(image_path):
 
         logger.info(f'Template:{template_subfolder}, Score:{max_img_score}')
 
-    max_key = max(template_scores, key=template_scores.get)
-    max_val = template_scores[max_key]
+    if sum(template_scores.values()) == 7:
+        return {'7': 1}
 
-    return {max_key: max_val}
+    elif all(item < 0.6 for item in template_scores.values()):
+        return {'7': 1}
+
+    else:
+        max_key = max(template_scores, key=template_scores.get)
+        max_val = template_scores[max_key]
+
+        return {max_key: max_val}
 
 
 if __name__ == "__main__":
-    image_rec(image_path='/Users/teddyhaley/PycharmProjects/vanhacks2019/test_data/test_images/3.jpg')
+    print(image_rec(image_path='/Users/teddyhaley/PycharmProjects/vanhacks2019/test_data/test_images/3.jpg'))
