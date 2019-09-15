@@ -12,7 +12,7 @@ function initMap() {
   var request = {
     query: 'Recycling Depot',
     location: coordinates,
-    radius: 10000,  // meters
+    radius: 5000,  // meters
   };
 
   var infowindow = new google.maps.InfoWindow();
@@ -35,10 +35,10 @@ function initMap() {
 function createMarker(place){
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
+    position: place.geometry.location,
   });
 
-  google.maps.event.addDomListener(marker, "click", function(){
+  google.maps.event.addListener(marker, "click", function(){
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
