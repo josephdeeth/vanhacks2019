@@ -12,62 +12,131 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
+import * as Permissions from 'expo-permissions';
+import { Camera } from 'expo-camera';
+
+
+export default class HomeScreen extends React.Component {
+  cameraRef = React.createRef();
+
+  handlePhoto = async () => {
+      if(this.cameraRef){
+        let photo = await this.cameraRef.current.takePictureAsync();
+        console.log(photo);
+      }
+    }
+
+  state = {
+    hasCameraPermission: null,
+    type: Camera.Constants.Type.back,
+  };
+
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+  render() {
+    const { hasCameraPermission } = this.state;
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <Camera ref={this.cameraRef} style={{ flex: 1 }} type={this.state.type}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'transparent',
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity
+                style={{
+                  flex: 0.1,
+                  alignSelf: 'flex-end',
+                  alignItems: 'center',
+                }}
+                onPress={() => {
+                  this.setState({
+                    type:
+                      this.state.type === Camera.Constants.Type.back
+                        ? Camera.Constants.Type.front
+                        : Camera.Constants.Type.back,
+                  });
+                }}>
+                <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+                <TouchableOpacity
+                  style={{width:60, height:60, borderRadius:30, backgroundColor:"#fff"}}
+                  onPress={this.handlePhoto} />
+            </View>
+          </Camera>
         </View>
-
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
-    </View>
-  );
+      );
+    }
+  }
 }
+
+//export default function HomeScreen() {
+//  return (
+//    <View style={styles.container}>
+//      <ScrollView
+//        style={styles.container}
+//        contentContainerStyle={styles.contentContainer}>
+//        <View style={styles.welcomeContainer}>
+//          <Image
+//            source={
+//              __DEV__
+//                ? require('../assets/images/robot-dev.png')
+//                : require('../assets/images/robot-prod.png')
+//            }
+//            style={styles.welcomeImage}
+//          />
+//        </View>
+//
+//        <View style={styles.getStartedContainer}>
+//          <DevelopmentModeNotice />
+//
+//          <Text style={styles.getStartedText}>Get started by opening</Text>
+//
+//          <View
+//            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+//            <MonoText>screens/HomeScreen.js</MonoText>
+//          </View>
+//
+//          <Text style={styles.getStartedText}>
+//            Change this text and your app will automatically reload.
+//          </Text>
+//        </View>
+//
+//        <View style={styles.helpContainer}>
+//          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+//            <Text style={styles.helpLinkText}>
+//              Help, it didn’t automatically reload!
+//            </Text>
+//          </TouchableOpacity>
+//        </View>
+//      </ScrollView>
+//
+//      <View style={styles.tabBarInfoContainer}>
+//        <Text style={styles.tabBarInfoText}>
+//          This is a tab bar. You can edit it in:
+//        </Text>
+//
+//        <View
+//          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+//          <MonoText style={styles.codeHighlightText}>
+//            navigation/MainTabNavigator.js
+//          </MonoText>
+//        </View>
+//      </View>
+//    </View>
+//  );
+//}
 
 HomeScreen.navigationOptions = {
   header: null,
