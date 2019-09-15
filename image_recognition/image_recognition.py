@@ -1,6 +1,13 @@
 import os
 import cv2
 import numpy as np
+import logging
+
+# setup logging
+logging.basicConfig(
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 
 def image_rec(image_path):
@@ -52,7 +59,8 @@ def image_rec(image_path):
 
         max_img_score = max(scores)
         template_scores[template_subfolder] = max_img_score
-        print(f'Template:{template_subfolder}, Score:{max_img_score}')
+
+        logger.info(f'Template:{template_subfolder}, Score:{max_img_score}')
 
     max_key = max(template_scores, key=template_scores.get)
     max_val = template_scores[max_key]
