@@ -8,7 +8,6 @@ import {Container, Content} from 'native-base';
 import Swiper from 'react-native-swiper';
 import SearchBar from 'react-native-search-bar'
 
-
 import * as WebBrowser from 'expo-web-browser';
 
 import * as Permissions from 'expo-permissions';
@@ -49,7 +48,8 @@ handlePhoto = async () => {
 
 
 export default class App extends React.Component {
-  state = { term: ''};
+  state = { term: '',
+  search:''};
   render() {
     const{
       containerStyle,
@@ -64,11 +64,8 @@ export default class App extends React.Component {
           showsPagination={false}
           index={1}
           >
-            <View style={{ flex:1 , backgroundColor: '#ddd'}}>
-              <Header
-                centerComponent={{ text: 'Test Text', style: {color: 'white'}}}
-                outerContainerStyles={{ backgroundColor: '#E62117'}}
-              />
+            <View style={{ flex:1 , backgroundColor: styles.slideDefault.backgroundColor}}>
+
               <View style={containerStyle}>
                 <TextInput
                     style={searchTextStyle}
