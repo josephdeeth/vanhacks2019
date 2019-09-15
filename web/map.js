@@ -1,9 +1,12 @@
 var map;
-var coordinates = new google.maps.LatLng(49.2786042, -123.0998905);
+var coordinates = {
+      lat: 49.2786042,
+      lng: -123.0998905,
+    };
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: coordinates,
-    zoom: 5,
+    zoom: 14,
   });
 
   var request = {
