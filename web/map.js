@@ -3,22 +3,26 @@ var coordinates = {
       lat: 49.2786042,
       lng: -123.0998905,
     };
+var infowindow;
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: coordinates,
-    zoom: 14,
+    zoom: 12,
   });
 
   var request = {
     query: 'Recycling Depot',
     location: coordinates,
-    radius: 5000,  // meters
+    radius: 7500,  // meters
   };
 
-  var infowindow = new google.maps.InfoWindow();
+  infowindow = new google.maps.InfoWindow();
+
 
   service = new google.maps.places.PlacesService(map);
   service.textSearch(request, function(results, status, pagination){
+    // alert(status);
     // If we got results
     if(status === google.maps.places.PlacesServiceStatus.OK){
       for(var i = 0; i < results.length; i++){
@@ -38,8 +42,11 @@ function createMarker(place){
     position: place.geometry.location,
   });
 
+  // alert(place.name + " from the marker!");
+
   google.maps.event.addListener(marker, "click", function(){
+    map.setCenter(marker.getPosition());
     infowindow.setContent(place.name);
-    infowindow.open(map, this);
+    infowindow.open(map, marker);
   });
 }
