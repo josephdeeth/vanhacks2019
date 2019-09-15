@@ -1,9 +1,8 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from image_recognition.image_recognition import image_rec
 import json
 import pandas as pd
-import numpy as np
 import logging
 import base64
 
